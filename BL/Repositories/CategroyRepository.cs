@@ -18,14 +18,23 @@ namespace BL.Repositories
             this.dbContext = dbContext;
         }
 
-        public bool CheckIfCategroyExist(Category category) {
-          
-            return GetAny(cat => cat.ID == category.ID); 
+        public bool CheckIfCategroyExist(Category category)
+        {
+
+            return GetAny(cat => cat.ID == category.ID);
         }
 
-        public bool CkeckIfCategroyExistByName(Category category) {
+        public bool CkeckIfCategroyExistByName(Category category)
+        {
             return GetAny(cat => cat.Name == category.Name);
         }
+
+        public Category GetCategoryWithProducts(int id)
+        {
+            var categroy = GetFirstOrDefault("Products", c => c.ID == id);
+            return categroy;
+        }
+
 
     }
 }

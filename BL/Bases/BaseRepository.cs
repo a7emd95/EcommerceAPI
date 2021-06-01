@@ -71,6 +71,15 @@ namespace BL.Bases
             }
             return null;
         }
+
+        public T GetFirstOrDefault(string toInclude, Expression<Func<T, bool>> filter = null)
+        {
+            if (filter != null)
+            {
+                return DbSet.Include(toInclude).FirstOrDefault(filter);
+            }
+            return null;
+        }
         #endregion
 
 
@@ -166,6 +175,16 @@ namespace BL.Bases
             pageSize = (pageSize > 12 || pageSize < 0) ? 12 : pageSize;
 
             return DbSet.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+        }
+
+        
+        public IQueryable<T> GetByPage(int pageNumber, int pageSize , Expression<Func<T, bool>> filter )
+        {
+            pageNumber = (pageNumber < 0) ? 1 : pageNumber;
+            pageSize = (pageSize > 12 || pageSize < 0) ? 12 : pageSize;
+
+            return DbSet.Where(filter).Skip((pageNumber - 1) * pageSize).Take(pageSize);
 
         }
         #endregion

@@ -20,6 +20,8 @@ namespace BL.Config
                 cfg =>
                 {
                     cfg.CreateMap<Category, CategroyDto>().ReverseMap();
+                    cfg.CreateMap<Category, CategroyWithProductsDto>().ReverseMap();
+                    cfg.CreateMap<Product, ProductDto>().ReverseMap();
                 }
                 );
 

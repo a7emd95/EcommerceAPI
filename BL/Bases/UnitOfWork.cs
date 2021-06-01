@@ -44,6 +44,17 @@ namespace BL.Bases
             }
         }
 
+        private ProductRepository productRepo;
+        public ProductRepository ProductRepository
+        {
+            get
+            {
+                if (productRepo == null)
+                    productRepo = new ProductRepository(DbContext);
+                return productRepo;
+            }
+        }
+
 
 
 

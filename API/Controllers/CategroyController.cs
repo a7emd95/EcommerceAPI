@@ -36,6 +36,13 @@ namespace API.Controllers
         {
             return Ok(CategoryAppService.GetCategroy(id));
         }
+        [HttpGet]
+        [Route("categroyWithProducts/{id}")]
+        public IActionResult GetWithProduct(int id) {
+
+            return Ok(CategoryAppService.GetCategoryWithProducts(id));
+        
+        }
 
         // POST api/<CategroyController>
         [HttpPost]

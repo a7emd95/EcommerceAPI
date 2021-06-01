@@ -14,5 +14,7 @@ namespace DAL.Models
         public int ID { get; set; }
         [Required(ErrorMessage ="Categroy Name is Must") , MinLength( 3,ErrorMessage ="Name Must be Three Character Minumin")]
         public string Name { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

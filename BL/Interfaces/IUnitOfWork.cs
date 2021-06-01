@@ -15,6 +15,7 @@ namespace BL.Interfaces
 
         public CategroyRepository CategroyRepository { get; }
 
+        public ProductRepository ProductRepository{ get; }
 
 
 

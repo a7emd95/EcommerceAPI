@@ -23,12 +23,17 @@ namespace BL.AppServices
 
         public CategroyDto GetCategroy(CategroyDto categroyDto)
         {
-            return Mapper.Map<CategroyDto>(TheUnitOfWork.CategroyRepository.GetFirstOrDefault( c => c.ID == categroyDto.ID ));
+            return Mapper.Map<CategroyDto>(TheUnitOfWork.CategroyRepository.GetFirstOrDefault(c => c.ID == categroyDto.ID));
         }
 
         public CategroyDto GetCategroy(int id)
         {
             return Mapper.Map<CategroyDto>(TheUnitOfWork.CategroyRepository.GetFirstOrDefault(c => c.ID == id));
+        }
+
+        public CategroyWithProductsDto GetCategoryWithProducts(int id)
+        {
+            return  Mapper.Map<CategroyWithProductsDto>(TheUnitOfWork.CategroyRepository.GetCategoryWithProducts(id)) ;
         }
 
         public CategroyDto CreateNewCategroy(CategroyDto categroyDto)

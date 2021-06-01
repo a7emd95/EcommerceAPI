@@ -54,6 +54,7 @@ namespace API
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<CategoryAppService>();
+            services.AddTransient<ProductAppService>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApiContext>()
