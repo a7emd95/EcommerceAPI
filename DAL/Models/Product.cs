@@ -42,9 +42,12 @@ namespace DAL.Models
         public int? DisscountRate { get; set; }
 
 
-        public int? CategroyId { get; set; }
 
+        public int? CategroyId { get; set; }
         [ForeignKey("CategroyId ")]
         public virtual Category Category { get; set; }
+
+
+        public ICollection<ProductCart> ProductCarts { get; set; }
     }
 }

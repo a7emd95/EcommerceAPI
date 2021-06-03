@@ -19,6 +19,7 @@ using System.Text;
 using BL.Bases;
 using BL.Interfaces;
 using BL.AppServices;
+using Microsoft.AspNetCore.Http;
 
 namespace API
 {
@@ -55,10 +56,15 @@ namespace API
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<CategoryAppService>();
             services.AddTransient<ProductAppService>();
+            services.AddTransient<CartAppServices>();
+
+           
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApiContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddAuthentication(
                 options =>
@@ -83,7 +89,7 @@ namespace API
 
 
 
-
+            
 
         }
 

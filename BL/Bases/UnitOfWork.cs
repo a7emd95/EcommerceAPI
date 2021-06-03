@@ -1,6 +1,7 @@
 ﻿using BL.Interfaces;
 using BL.Repositories;
 using DAL;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace BL.Bases
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext DbContext;
+       
 
-        public UnitOfWork(ApiContext dbContext)
+        public UnitOfWork(ApiContext dbContext )
         {
             DbContext = dbContext;
+            
         }
 
         #region Method
@@ -55,6 +58,27 @@ namespace BL.Bases
             }
         }
 
+        private CartRepository cartRepo;
+        public CartRepository CartRepository
+        {
+            get
+            {
+                if (cartRepo == null)
+                    cartRepo = new CartRepository(DbContext);
+                return cartRepo;
+            }
+        }
+
+        private ProductCartRepository productCartRepo;
+        public ProductCartRepository ProductCartRepository
+        {
+            get
+            {
+                if (productCartRepo == null)
+                    productCartRepo = new ProductCartRepository(DbContext);
+                return productCartRepo;
+            }
+        }
 
 
 

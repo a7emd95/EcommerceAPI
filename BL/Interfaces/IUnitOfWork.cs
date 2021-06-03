@@ -17,6 +17,12 @@ namespace BL.Interfaces
 
         public ProductRepository ProductRepository{ get; }
 
+        public CartRepository CartRepository { get; }
+
+        public ProductCartRepository ProductCartRepository { get; }
+
+
+
 
 
 
