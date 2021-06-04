@@ -43,6 +43,7 @@ namespace API.Controllers
         }
 
         // POST api/<ProductController>
+        [Authorize(Roles = UserRole.Admin)]
         [HttpPost]
         public IActionResult Post(ProductDto productDto)
         {
@@ -75,6 +76,7 @@ namespace API.Controllers
         }
 
         // PUT api/<ProductController>/5
+        [Authorize(Roles = UserRole.Admin)]
         [HttpPut("{id}")]
         public IActionResult Put(ProductDto productDto)
         {
@@ -102,6 +104,7 @@ namespace API.Controllers
         }
 
         // DELETE api/<ProductController>/5
+        [Authorize(Roles = UserRole.Admin)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

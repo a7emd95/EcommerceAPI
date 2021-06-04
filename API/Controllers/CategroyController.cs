@@ -1,6 +1,7 @@
 ﻿using BL.AppServices;
 using BL.DTOs;
 using BL.Helper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class CategroyController : ControllerBase
@@ -45,6 +47,7 @@ namespace API.Controllers
         }
 
         // POST api/<CategroyController>
+        [Authorize(Roles = UserRole.Admin)]
         [HttpPost]
         public IActionResult Post(CategroyDto categroyDto)
         {
@@ -77,6 +80,7 @@ namespace API.Controllers
         }
 
         // PUT api/<CategroyController>/5
+        [Authorize(Roles = UserRole.Admin)]
         [HttpPut("{id}")]
         public IActionResult Put(CategroyDto categroyDto)
         {
@@ -106,6 +110,7 @@ namespace API.Controllers
         }
 
         // DELETE api/<CategroyController>/5
+        [Authorize(Roles = UserRole.Admin)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
