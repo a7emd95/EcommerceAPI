@@ -57,6 +57,7 @@ namespace API
             services.AddTransient<CategoryAppService>();
             services.AddTransient<ProductAppService>();
             services.AddTransient<CartAppServices>();
+            services.AddTransient<AccountAppService>();
 
            
 

@@ -1,5 +1,6 @@
 ﻿using BL.AppServices;
 using BL.Helper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,8 +13,10 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+
     public class CartController : ControllerBase
     {
         private readonly CartAppServices CartAppServices;
@@ -63,8 +66,8 @@ namespace API.Controllers
 
             try
             {
-                 var userId = "c55eeb34-776d-4d1f-83ad-23db51a7725a";
-               // var userId = HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+               //  var userId = "c55eeb34-776d-4d1f-83ad-23db51a7725a";
+               var userId = HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                 var productAdded = CartAppServices.AddnewProductToCart(userId, productId, quantity);
                 if (productAdded != null)

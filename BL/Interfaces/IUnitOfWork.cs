@@ -15,11 +15,13 @@ namespace BL.Interfaces
 
         public CategroyRepository CategroyRepository { get; }
 
-        public ProductRepository ProductRepository{ get; }
+        public ProductRepository ProductRepository { get; }
 
         public CartRepository CartRepository { get; }
 
         public ProductCartRepository ProductCartRepository { get; }
+
+        public AccountRepositroy AccountRepositroy { get; }
 
 
 

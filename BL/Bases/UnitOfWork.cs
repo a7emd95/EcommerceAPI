@@ -2,7 +2,9 @@
 using BL.Repositories;
 using DAL;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +16,17 @@ namespace BL.Bases
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext DbContext;
-       
+        private readonly UserManager<ApplicationUser> UserManger;
+        private readonly RoleManager<IdentityRole> RoleManager;
+        private readonly IConfiguration Configuration;
 
-        public UnitOfWork(ApiContext dbContext )
+        public UnitOfWork(ApiContext dbContext, UserManager<ApplicationUser> userManger, RoleManager<IdentityRole> roleManager
+            , IConfiguration configuration)
         {
             DbContext = dbContext;
-            
+            UserManger = userManger;
+            RoleManager = roleManager;
+            Configuration = configuration;
         }
 
         #region Method
@@ -80,6 +87,16 @@ namespace BL.Bases
             }
         }
 
+        private AccountRepositroy accountRepo;
+        public AccountRepositroy AccountRepositroy
+        {
+            get
+            {
+                if (accountRepo == null)
+                    accountRepo = new AccountRepositroy(UserManger, RoleManager, Configuration);
+                return accountRepo;
+            }
+        }
 
 
 
