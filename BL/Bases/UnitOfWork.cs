@@ -98,6 +98,28 @@ namespace BL.Bases
             }
         }
 
+        private OrderRepositroy orderRepo;
+        public OrderRepositroy OrderRepositroy
+        {
+            get
+            {
+                if (orderRepo == null)
+                    orderRepo = new OrderRepositroy(DbContext);
+                return orderRepo;                   
+            }
+        }
+
+        private OrderProductRepositroy orderProductRepo;
+        public OrderProductRepositroy OrderProductRepositroy
+        {
+            get
+            {
+                if (orderProductRepo == null)
+                    orderProductRepo = new OrderProductRepositroy(DbContext);
+                return orderProductRepo;
+            }
+        }
+
 
 
     }

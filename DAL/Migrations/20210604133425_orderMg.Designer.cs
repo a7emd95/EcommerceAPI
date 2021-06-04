@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    partial class ApiContextModelSnapshot : ModelSnapshot
+    [Migration("20210604133425_orderMg")]
+    partial class orderMg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,10 +119,10 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTime>("OrderDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("TotalPrice")
+                    b.Property<decimal>("TotalOrderPrice")
                         .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("UserID")
@@ -149,11 +151,14 @@ namespace DAL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("OrderID");
-
                     b.HasIndex("ProductID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("OrderProduct");
                 });
@@ -377,17 +382,15 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.OrderProduct", b =>
                 {
-                    b.HasOne("DAL.Models.Order", "Order")
-                        .WithMany("OrderProducts")
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DAL.Models.Product", "Product")
                         .WithMany("OrderProducts")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("DAL.Models.Order", "Order")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("UserID");
 
                     b.Navigation("Order");
 

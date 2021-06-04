@@ -48,6 +48,8 @@ namespace DAL.Models
         public virtual Category Category { get; set; }
 
 
-        public ICollection<ProductCart> ProductCarts { get; set; }
+        public  ICollection<ProductCart> ProductCarts { get; set; }
+
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

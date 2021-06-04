@@ -27,6 +27,12 @@ namespace BL.AppServices
             return result;
         }
 
+        public async Task<Response> RegisterForAdmin(RegisterModel userModel)
+        {
+            var result = await TheUnitOfWork.AccountRepositroy.RegisterForAdmin(userModel);
+            return result;
+        }
+
         public async Task<JwtSecurityToken> Login(LoginModel loginModel)
         {
             var result = await TheUnitOfWork.AccountRepositroy.Login(loginModel);

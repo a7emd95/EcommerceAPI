@@ -23,6 +23,11 @@ namespace BL.Interfaces
 
         public AccountRepositroy AccountRepositroy { get; }
 
+        public OrderRepositroy OrderRepositroy  { get; }
+
+        public OrderProductRepositroy OrderProductRepositroy { get; }
+
+
 
 
 

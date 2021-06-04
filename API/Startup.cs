@@ -58,8 +58,9 @@ namespace API
             services.AddTransient<ProductAppService>();
             services.AddTransient<CartAppServices>();
             services.AddTransient<AccountAppService>();
+            services.AddTransient<OrderAppService>();
 
-           
+
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApiContext>()

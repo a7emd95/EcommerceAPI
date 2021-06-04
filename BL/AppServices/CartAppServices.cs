@@ -13,10 +13,10 @@ namespace BL.AppServices
 {
     public class CartAppServices : BaseAppService
     {
-     
+
         public CartAppServices(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-           
+
         }
 
         public ProductForCartDto AddnewProductToCart(string userId, int productID, int quantity)
@@ -85,11 +85,16 @@ namespace BL.AppServices
 
         public List<ProductForCartDto> GetAllProductsInCart(string userId)
         {
-            var cart = TheUnitOfWork.CartRepository.GetFirstOrDefault(c => c.UserID == userId);
+            var cart = TheUnitOfWork.CartRepository.GetFirstOrDefault("ProductCarts", c => c.UserID == userId);
+
+
+
+
             List<ProductForCartDto> products = new List<ProductForCartDto>();
 
             foreach (var item in cart.ProductCarts)
             {
+                item.Product = TheUnitOfWork.ProductRepository.GetById(item.ProductID);
                 var product = item.Product;
                 decimal totalprice = ((item.Quantity * product.Price) - ((product.Price * (product.DisscountRate / 100)) * item.Quantity)).Value;
 

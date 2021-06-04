@@ -22,8 +22,10 @@ namespace BL.Config
                     cfg.CreateMap<Category, CategroyDto>().ReverseMap();
                     cfg.CreateMap<Category, CategroyWithProductsDto>().ReverseMap();
                     cfg.CreateMap<Product, ProductDto>().ReverseMap();
-                  //  cfg.CreateMap<Product, ProductForCartDto>().ReverseMap();
+                    //  cfg.CreateMap<Product, ProductForCartDto>().ReverseMap();
                     cfg.CreateMap<Cart, CartDto>().ReverseMap();
+                    cfg.CreateMap<Order, OrderDto>().ReverseMap();
+                    cfg.CreateMap<OrderProduct, OrderProductDto>();
 
                     #region Test
                     // cfg.CreateMap<Product, ProductForCartDto>().ForMember(d => d.ProductID, opt => opt.MapFrom(src => src.ID))

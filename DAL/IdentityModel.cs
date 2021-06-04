@@ -12,5 +12,7 @@ namespace DAL
     {
 
         public virtual Cart Cart { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

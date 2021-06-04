@@ -46,6 +46,33 @@ namespace API.Controllers
             }
 
         }
+
+
+        [HttpPost]
+        [Route("regiserAdmin")]
+        public async Task<IActionResult> RegisterForAdmin(RegisterModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var result = await AccountAppService.RegisterForAdmin(model);
+                if (result.Sataus == StatusResponse.Success)
+                    return Ok(result);
+                return BadRequest(result);
+
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+
+        }
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(LoginModel model)

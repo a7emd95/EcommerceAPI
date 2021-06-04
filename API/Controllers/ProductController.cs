@@ -54,7 +54,7 @@ namespace API.Controllers
             {
                 if (ProductAppService.CheckProductIsExistByName(productDto))
                 {
-                    return BadRequest(new Response { Sataus = "ERORR", Message = "This Product Is Already Added" });
+                    return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = "This Product Is Already Added" });
                 }
 
                 ProductDto product = ProductAppService.CreateNewProduct(productDto);
@@ -65,7 +65,7 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return BadRequest(new Response { Sataus = "ERROR", Message = "Faild To Create Product" });
+                    return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = "Faild To Create Product" });
                 }
             }
             catch (Exception e)
@@ -86,11 +86,11 @@ namespace API.Controllers
             {
                 if (ProductAppService.UpdateProduct(productDto))
                 {
-                    return Ok(new Response { Sataus = "Updated", Message = "Product Updated Susscffuly" });
+                    return Ok(new Response { Sataus = StatusResponse.Success, Message = "Product Updated Susscffuly" });
                 }
                 else
                 {
-                    return BadRequest(new Response { Sataus = "ERROR", Message = " Product Updated Failed" });
+                    return BadRequest(new Response { Sataus = StatusResponse.Failed , Message = " Product Updated Failed" });
                 }
 
             }
@@ -109,17 +109,17 @@ namespace API.Controllers
             {
                 if (ProductAppService.GetProduct(id) == null)
                 {
-                    return BadRequest(new Response { Sataus = "ERROR", Message = "Product Is Already Deleted" });
+                    return BadRequest(new Response { Sataus =StatusResponse.Failed, Message = "Product Is Already Deleted" });
                 }
 
                 var result = ProductAppService.DeleteProduct(id);
                 if (result)
                 {
-                    return Ok(new Response { Sataus = "Deleted", Message = "Product Deleted Susscffuly" });
+                    return Ok(new Response { Sataus = StatusResponse.Success , Message = "Product Deleted Susscffuly" });
                 }
                 else
                 {
-                    return BadRequest(new Response { Sataus = "ERROR", Message = " Product Deleted Failed" });
+                    return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = " Product Deleted Failed" });
                 }
 
             }

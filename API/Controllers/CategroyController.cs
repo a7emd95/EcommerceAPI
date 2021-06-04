@@ -57,7 +57,7 @@ namespace API.Controllers
             {
                 if (CategoryAppService.CheckCategroyIsExistByName(categroyDto))
                 {
-                    return BadRequest(new Response { Sataus = "ERORR", Message = "This Caregroy Is Already Added" });
+                    return BadRequest(new Response { Sataus = StatusResponse.Failed , Message = "This Caregroy Is Already Added" });
                 }
 
                 CategroyDto categroy = CategoryAppService.CreateNewCategroy(categroyDto);
@@ -65,7 +65,7 @@ namespace API.Controllers
                 {
                     return Ok(categroy);
                 }
-                return BadRequest(new Response { Sataus = "ERROR", Message = "Faild To Create Categroy" });
+                return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = "Faild To Create Categroy" });
 
             }
             catch (Exception e)
@@ -89,11 +89,11 @@ namespace API.Controllers
                 var result = CategoryAppService.UpdateCategroy(categroyDto);
                 if (result)
                 {
-                    return Ok(new Response { Sataus = "Updated", Message = "Categroy Updated Susscffuly" });
+                    return Ok(new Response { Sataus = StatusResponse.Success, Message = "Categroy Updated Susscffuly" });
                 }
                 else
                 {
-                    return BadRequest(new Response { Sataus = "ERROR", Message = " Categroy Updated Failed" });
+                    return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = " Categroy Updated Failed" });
                 }
 
             }
@@ -114,17 +114,17 @@ namespace API.Controllers
             {
                 if (CategoryAppService.GetCategroy(id) == null)
                 {
-                    return BadRequest(new Response { Sataus = "ERROR", Message = "Categroy Is Already Deleted" });
+                    return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = "Categroy Is Already Deleted" });
                 }
 
                 var result = CategoryAppService.DeleteCategroy(id);
                 if (result)
                 {
-                    return Ok(new Response { Sataus = "Deleted", Message = "Categroy Deleted Susscffuly" });
+                    return Ok(new Response { Sataus = StatusResponse.Success, Message = "Categroy Deleted Susscffuly" });
                 }
                 else
                 {
-                    return BadRequest(new Response { Sataus = "ERROR", Message = " Categroy Deleted Failed" });
+                    return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = " Categroy Deleted Failed" });
                 }
 
             }

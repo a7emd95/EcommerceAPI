@@ -33,10 +33,10 @@ namespace BL.Repositories
         {
             var CheckUser = await UserManager.FindByNameAsync(userModel.Name);
 
-            if (CheckUser != null )
+            if (CheckUser != null)
             {
-                if(CheckUser.Email == userModel.Email)
-                return new Response() { Sataus = StatusResponse.Failed, Message = " This User Alreday Registerd" };
+                if (CheckUser.Email == userModel.Email)
+                    return new Response() { Sataus = StatusResponse.Failed, Message = " This User Alreday Registerd" };
             }
 
             var user = new ApplicationUser()
@@ -101,6 +101,50 @@ namespace BL.Repositories
 
             return null;
 
+        }
+
+        public async Task<Response> RegisterForAdmin(RegisterModel userModel)
+        {
+            var CheckUser = await UserManager.FindByNameAsync(userModel.Name);
+
+            if (CheckUser != null)
+            {
+                if (CheckUser.Email == userModel.Email)
+                    return new Response() { Sataus = StatusResponse.Failed, Message = " This User Alreday Registerd" };
+            }
+
+            var user = new ApplicationUser()
+            {
+                UserName = userModel.Name,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                Email = userModel.Email
+
+            };
+
+            var result = await UserManager.CreateAsync(user, userModel.Password);
+
+            if (!result.Succeeded)
+            {
+                return new Response() { Sataus = StatusResponse.Failed, Message = " Failed To Register" };
+
+            }
+
+            if (!await RoleManager.RoleExistsAsync(UserRole.Admin))
+            {
+                await RoleManager.CreateAsync(new IdentityRole(UserRole.Admin));
+            }
+
+            if (!await RoleManager.RoleExistsAsync(UserRole.User))
+            {
+                await RoleManager.RoleExistsAsync(UserRole.User);
+            }
+
+            if (await RoleManager.RoleExistsAsync(UserRole.Admin))
+            {
+                await UserManager.AddToRoleAsync(user, UserRole.Admin);
+            }
+
+            return new Response() { Sataus = StatusResponse.Success, Message = " User SucessFully Created" };
         }
 
 

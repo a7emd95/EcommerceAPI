@@ -30,9 +30,10 @@ namespace API.Controllers
 
         // GET: api/<CartController>
         [HttpGet]
-        [Route("allProduct/{userId}")]
-        public IActionResult GetAllProductInCart(string userId)
+        [Route("allProduct")]
+        public IActionResult GetAllProductInCart()
         {
+            var userId = HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             return Ok(CartAppServices.GetAllProductsInCart(userId));
         }
 
@@ -47,9 +48,9 @@ namespace API.Controllers
             try
             {
                 if (CartAppServices.CreateCart(userId) != null)
-                    return Ok(new Response { Sataus = "Created", Message = "Cart is Created" });
+                    return Ok(new Response { Sataus = StatusResponse.Success, Message = "Cart is Created" });
 
-                return BadRequest(new Response { Sataus = "Failed", Message = "Cart isnot Created" });
+                return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = "Cart isnot Created" });
             }
             catch (Exception e)
             {
@@ -66,8 +67,8 @@ namespace API.Controllers
 
             try
             {
-               //  var userId = "c55eeb34-776d-4d1f-83ad-23db51a7725a";
-               var userId = HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                //  var userId = "c55eeb34-776d-4d1f-83ad-23db51a7725a";
+                var userId = HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
                 var productAdded = CartAppServices.AddnewProductToCart(userId, productId, quantity);
                 if (productAdded != null)
@@ -75,7 +76,7 @@ namespace API.Controllers
                     return Ok(productAdded);
                 }
 
-                return BadRequest(new Response { Sataus = "FAILED", Message = "Faild to add this product to cart" });
+                return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = "Faild to add this product to cart" });
 
             }
             catch (Exception e)
@@ -97,8 +98,8 @@ namespace API.Controllers
 
                 bool result = CartAppServices.DeleteProducatFromCart(userId, productId);
                 if (result)
-                    return Ok(new Response { Sataus = "Succcess", Message = " Product Deleted Succsessffly form Cart" });
-                return BadRequest(new Response { Sataus = "Faild", Message = " Faild to delete Productform Cart" });
+                    return Ok(new Response { Sataus = StatusResponse.Success, Message = " Product Deleted Succsessffly form Cart" });
+                return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = " Faild to delete Productform Cart" });
 
             }
             catch (Exception e)
@@ -122,10 +123,10 @@ namespace API.Controllers
                 var result = CartAppServices.UpdateProducatFromCart(userId, productId, quantity);
                 if (result)
                 {
-                    return Ok(new Response { Sataus = "Succcess", Message = " Product Updated Succsessffly" });
+                    return Ok(new Response { Sataus = StatusResponse.Success, Message = " Product Updated Succsessffly" });
                 }
 
-                return BadRequest(new Response { Sataus = "FAILED", Message = "Faild to update this product " });
+                return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = "Faild to update this product " });
 
             }
             catch (Exception e)
@@ -139,15 +140,15 @@ namespace API.Controllers
         [HttpDelete]
         public IActionResult Delete()
         {
-            
+
             try
             {
                 var userId = HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 bool result = CartAppServices.DeleteCart(userId);
                 if (result)
-                    return Ok(new Response { Sataus = "Succcess", Message = "  Deleted Succsessffly  " });
-                return BadRequest(new Response { Sataus = "Faild", Message = " Faild to delete  Cart" });
+                    return Ok(new Response { Sataus = StatusResponse.Success, Message = "  Deleted Succsessffly  " });
+                return BadRequest(new Response { Sataus = StatusResponse.Failed, Message = " Faild to delete  Cart" });
 
             }
             catch (Exception e)
